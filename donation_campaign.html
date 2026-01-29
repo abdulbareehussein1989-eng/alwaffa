@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حملة التبرعات - مشروع خير للقرية</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2d5016;
+            --accent: #d4a574;
+            --light: #f5f1e8;
+            --dark: #1a1a1a;
+            --success: #4a9d6f;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--light) 0%, #ede8dc 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: var(--dark);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: slideDown 0.6s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 1.1em;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .stats-box {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .stat {
+            background: white;
+            padding: 20px 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            min-width: 150px;
+        }
+
+        .stat-number {
+            font-size: 2em;
+            color: var(--primary);
+            font-weight: 700;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            color: #888;
+            margin-top: 5px;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .form-section {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.6s ease-out 0.2s both;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-section h2 {
+            color: var(--primary);
+            margin-bottom: 25px;
+            font-size: 1.5em;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 0.95em;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(45, 80, 22, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.05em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: #1f3810;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(45, 80, 22, 0.3);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .donors-section {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.6s ease-out 0.4s both;
+        }
+
+        .donors-section h2 {
+            color: var(--primary);
+            margin-bottom: 25px;
+            font-size: 1.5em;
+        }
+
+        .donors-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .donor-card {
+            background: white;
+            padding: 18px;
+            border-radius: 10px;
+            border-right: 5px solid var(--accent);
+            animation: slideUp 0.5s ease-out;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .donor-card:hover {
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+            transform: translateX(-5px);
+        }
+
+        .donor-info {
+            flex: 1;
+        }
+
+        .donor-name {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+            font-size: 1.15em;
+        }
+
+        .donor-message {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 0px;
+            font-style: italic;
+            word-break: break-word;
+        }
+
+        .donor-amount-box {
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary), #3d6b1f);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 8px;
+            white-space: nowrap;
+            min-width: 120px;
+        }
+
+        .donor-amount {
+            color: white;
+            font-weight: 700;
+            font-size: 1.3em;
+            display: block;
+        }
+
+        .donor-currency {
+            font-size: 0.8em;
+            opacity: 0.9;
+            margin-top: 4px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #999;
+        }
+
+        .empty-state-icon {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        .success-message {
+            display: none;
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .total-amount {
+            background: linear-gradient(135deg, var(--primary), #3d6b1f);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .total-label {
+            font-size: 0.95em;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+
+        .total-value {
+            font-size: 2em;
+            font-weight: 700;
+        }
+
+        .donors-list::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .donors-list::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .donors-list::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+        }
+
+        .donors-list::-webkit-scrollbar-thumb:hover {
+            background: #1f3810;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>💚 حملة التبرعات</h1>
+            <p class="subtitle">ساعدونا في بناء مستقبل أفضل لقريتنا</p>
+        </header>
+
+        <div class="stats-box">
+            <div class="stat">
+                <span class="stat-number" id="totalDonors">0</span>
+                <span class="stat-label">متبرع</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number" id="totalAmount">0 ر.س</span>
+                <span class="stat-label">إجمالي التبرعات</span>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="form-section">
+                <h2>تبرع الآن</h2>
+                <div class="success-message" id="successMessage">
+                    ✓ شكراً لك! تم تسجيل تبرعك بنجاح
+                </div>
+                <form id="donationForm">
+                    <div class="form-group">
+                        <label for="name">الاسم:</label>
+                        <input type="text" id="name" required placeholder="أدخل اسمك">
+                    </div>
+                    <div class="form-group">
+                        <label for="amount">المبلغ:</label>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                            <input type="number" id="amount" required placeholder="أدخل المبلغ" min="1" step="0.01">
+                            <select id="currency" style="padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 1em; font-family: inherit;">
+                                <option value="EUR">يورو €</option>
+                                <option value="USD">دولار أمريكي $</option>
+                                <option value="AED">درهم إماراتي د.إ</option>
+                                <option value="QAR">ريال قطري ر.ق</option>
+                                <option value="SEK">كرونة سويدية kr</option>
+                                <option value="DKK">كرونة دنماركية kr</option>
+                                <option value="GBP">جنيه استرليني £</option>
+                                <option value="SYP">ليرة سورية £.س</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">رسالة (اختياري):</label>
+                        <textarea id="message" placeholder="اكتب رسالتك أو دعاءك..."></textarea>
+                    </div>
+                    <button type="submit">إرسال التبرع ✓</button>
+                </form>
+            </div>
+
+            <div class="donors-section">
+                <h2>قائمة المتبرعين</h2>
+                <div class="donors-list" id="donorsList">
+                    <div class="empty-state">
+                        <div class="empty-state-icon">🙏</div>
+                        <p>سيظهر المتبرعون هنا</p>
+                    </div>
+                </div>
+                <div class="total-amount">
+                    <div class="total-label">المجموع الكلي</div>
+                    <div class="total-value" id="totalAmountDisplay">0 ر.س</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Currency symbols map
+        const currencySymbols = {
+            'EUR': 'يورو €',
+            'USD': 'دولار أمريكي $',
+            'AED': 'درهم إماراتي د.إ',
+            'QAR': 'ريال قطري ر.ق',
+            'SEK': 'كرونة سويدية kr',
+            'DKK': 'كرونة دنماركية kr',
+            'GBP': 'جنيه استرليني £',
+            'SYP': 'ليرة سورية £.س'
+        };
+
+        function getCurrencySymbol(code) {
+            return currencySymbols[code] || code;
+        }
+
+        // Load donations from localStorage
+        let donations = JSON.parse(localStorage.getItem('donations')) || [];
+
+        // Display initial donations
+        displayDonations();
+
+        // Form submission
+        document.getElementById('donationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value.trim();
+            const amount = parseFloat(document.getElementById('amount').value);
+            const currency = document.getElementById('currency').value;
+            const message = document.getElementById('message').value.trim();
+
+            if (!name || !amount || amount <= 0) {
+                alert('يرجى ملء جميع الحقول المطلوبة بشكل صحيح');
+                return;
+            }
+
+            // Add new donation
+            const donation = {
+                id: Date.now(),
+                name: name,
+                amount: amount,
+                currency: currency,
+                message: message,
+                timestamp: new Date().toLocaleString('ar-SA')
+            };
+
+            donations.unshift(donation); // Add to beginning
+            localStorage.setItem('donations', JSON.stringify(donations));
+
+            // Show success message
+            const successMsg = document.getElementById('successMessage');
+            successMsg.classList.add('show');
+            setTimeout(() => {
+                successMsg.classList.remove('show');
+            }, 3000);
+
+            // Reset form
+            this.reset();
+            document.getElementById('name').focus();
+
+            // Update display
+            displayDonations();
+        });
+
+        function displayDonations() {
+            const donorsList = document.getElementById('donorsList');
+            const totalDonorsElement = document.getElementById('totalDonors');
+            const totalAmountElement = document.getElementById('totalAmount');
+            const totalAmountDisplay = document.getElementById('totalAmountDisplay');
+
+            if (donations.length === 0) {
+                donorsList.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">🙏</div>
+                        <p>سيظهر المتبرعون هنا</p>
+                    </div>
+                `;
+                totalDonorsElement.textContent = '0';
+                totalAmountElement.textContent = '0 ر.س';
+                totalAmountDisplay.textContent = '0 ر.س';
+                return;
+            }
+
+            // Calculate totals
+            const totalAmount = donations.reduce((sum, d) => sum + d.amount, 0);
+            const totalDonors = donations.length;
+
+            // Update stats
+            totalDonorsElement.textContent = totalDonors;
+            totalAmountElement.textContent = totalAmount.toLocaleString('ar-SA') + ' ر.س';
+            totalAmountDisplay.textContent = totalAmount.toLocaleString('ar-SA') + ' ر.س';
+
+            // Display donors
+            donorsList.innerHTML = donations.map(donation => `
+                <div class="donor-card">
+                    <div class="donor-info">
+                        <div class="donor-name">👤 ${donation.name}</div>
+                        ${donation.message ? `<div class="donor-message">"${donation.message}"</div>` : ''}
+                    </div>
+                    <div class="donor-amount-box">
+                        <div class="donor-amount">${donation.amount.toLocaleString('ar-SA')}</div>
+                        <div class="donor-currency">${getCurrencySymbol(donation.currency)}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Auto-refresh every 2 seconds to show any updates from other tabs
+        setInterval(() => {
+            donations = JSON.parse(localStorage.getItem('donations')) || [];
+            displayDonations();
+        }, 2000);
+    </script>
+</body>
+</html>
